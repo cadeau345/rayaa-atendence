@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>استعادة كلمة المرور</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen" style="direction: rtl;">
+    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md text-center">
+        <h2 class="text-2xl font-bold mb-6">🔒 استعادة كلمة المرور</h2>
+
+        <input type="email" id="resetEmail" placeholder="البريد الإلكتروني" class="w-full p-3 rounded border mb-4" />
+
+        <button onclick="resetPassword()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+      إرسال رابط الاستعادة
+    </button>
+
+        <p class="mt-4 text-sm">
+            هل تذكرت كلمة المرور؟ <a href="login.html" class="text-blue-600 hover:underline">تسجيل الدخول</a>
+        </p>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0IAstH4zer5RkzJuQhPALX0UVnPotPDA",
+            authDomain: "raya-ahmed.firebaseapp.com",
+            projectId: "raya-ahmed",
+            storageBucket: "raya-ahmed.appspot.com",
+            messagingSenderId: "408257613174",
+            appId: "1:408257613174:web:57a6e4631b9866416cfe57"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        function resetPassword() {
+            const email = document.getElementById("resetEmail").value.trim();
+
+            if (!email) {
+                alert("📧 من فضلك أدخل البريد الإلكتروني.");
+                return;
+            }
+
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    alert("✅ تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني.");
+                })
+                .catch((error) => {
+                    alert("❌ " + error.message);
+                });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوحة التحكم - معهد راية</title>
+
+    <!-- Tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+    <!-- تفعيل الوضع الليلي من localStorage -->
+    <script>
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 font-sans text-gray-800 dark:text-white min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-green-600 dark:bg-gray-800 text-white p-4 flex justify-between items-center shadow">
+        <h1 class="text-xl font-bold">🎓 معهد راية - لوحة التحكم</h1>
+        <div class="flex gap-3">
+            <button onclick="toggleTheme()" class="bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded">
+        🌓 الوضع الليلي
+      </button>
+            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">
+        🚪 تسجيل الخروج
+      </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-6">
+        <h2 class="text-2xl font-bold text-center mb-6">👋 مرحبًا بك في لوحة التحكم</h2>
+
+        <!-- Navigation Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-10">
+            <a href="attendance.html" class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow hover:shadow-lg transition">
+                <h3 class="text-xl font-semibold mb-2">✅ تسجيل الحضور</h3>
+                <p class="mb-3">سجل حضور الموظفين</p>
+                <span class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded">دخول</span>
+            </a>
+
+            <a href="attend_log.html" class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow hover:shadow-lg transition">
+                <h3 class="text-xl font-semibold mb-2">📋 سجل الحضور</h3>
+                <p class="mb-3">عرض الحضور السابق</p>
+                <span class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">عرض</span>
+            </a>
+
+            <a href="contact.html" class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow hover:shadow-lg transition">
+                <h3 class="text-xl font-semibold mb-2">📞 اتصل بنا</h3>
+                <p class="mb-3">تواصل مع الإدارة</p>
+                <span class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded">مراسلة</span>
+            </a>
+        </div>
+
+        <!-- دكاترة -->
+        <div class="mb-10">
+            <h3 class="text-2xl font-semibold text-green-700 mb-4">👨‍🏫 الدكاترة</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- دكتور 1 -->
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow">
+                    <img src="basiony.jpg" alt="د. البسيوني" class="w-32 h-32 rounded-full mb-3 mx-auto object-cover" />
+                    <h4 class="text-xl font-bold text-center">د. محمد رفعت البسيوني</h4>
+                    <p class="text-center text-gray-600 dark:text-gray-300">أستاذ متفرغ حاسب ونظم - رئيس جامعة دمياط الأسبق</p>
+                </div>
+
+                <!-- دكتور 2 -->
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow">
+                    <img src="samir.jpg" alt="د. سمير" class="w-32 h-32 rounded-full mb-3 mx-auto object-cover" />
+                    <h4 class="text-xl font-bold text-center">د. سمير عبدالموجود</h4>
+                    <p class="text-center text-gray-600 dark:text-gray-300">أستاذ مساعد حاسب ونظم معلومات</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- طلاب المشروع -->
+        <div class="mb-10">
+            <h3 class="text-2xl font-semibold text-green-700 mb-4">👨‍💻 الطلاب القائمين على المشروع</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow text-center">
+                    <img src="tahan.jpg" class="w-24 h-24 mx-auto rounded-full mb-2" />
+                    <p class="font-semibold">أحمد سيد محمد</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow text-center">
+                    <img src="khalaf.jpg" class="w-24 h-24 mx-auto rounded-full mb-2" />
+                    <p class="font-semibold">أحمد خلف الله</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow text-center">
+                    <img src="mohamed elshenawy.jpg" class="w-24 h-24 mx-auto rounded-full mb-2" />
+                    <p class="font-semibold">أحمد محمد الشناوي</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow text-center">
+                    <img src="abdelbaset.jpg" class="w-24 h-24 mx-auto rounded-full mb-2" />
+                    <p class="font-semibold">أحمد عبدالباسط</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow text-center">
+                    <img src="abdelsalam.jpg" class="w-24 h-24 mx-auto rounded-full mb-2" />
+                    <p class="font-semibold">أحمد عبدالسلام</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-200 dark:bg-gray-800 text-center py-4 mt-auto">
+        جميع الحقوق محفوظة © معهد راية 2025
+    </footer>
+
+    <!-- Firebase v8 (المتوافقة) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <!-- Firebase Config -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0IAstH4zer5RkzJuQhPALX0UVnPotPDA",
+            authDomain: "raya-ahmed.firebaseapp.com",
+            projectId: "raya-ahmed",
+            storageBucket: "raya-ahmed.appspot.com",
+            messagingSenderId: "408257613174",
+            appId: "1:408257613174:web:57a6e4631b9866416cfe57"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                window.location.href = "login.html";
+            }).catch(error => {
+                alert("خطأ أثناء تسجيل الخروج: " + error.message);
+            });
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle("dark");
+            localStorage.setItem("theme", html.classList.contains("dark") ? "dark" : "light");
+        }
+    </script>
+</body>
+
+</html>

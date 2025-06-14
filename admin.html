@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوحة تحكم الأدمن - معهد راية</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script>
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white min-h-screen">
+
+    <header class="bg-green-600 dark:bg-gray-800 text-white p-4 flex justify-between items-center shadow">
+        <h1 class="text-xl font-bold">🛠️ لوحة تحكم الأدمن</h1>
+        <div class="flex gap-2">
+            <button onclick="toggleTheme()" class="bg-yellow-400 hover:bg-yellow-500 px-3 py-1 rounded">🌓 الوضع الليلي</button>
+            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">🚪 تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <main class="p-6 space-y-6">
+        <!-- بطاقات الإحصائيات -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <h2 class="text-lg font-semibold mb-2">👥 عدد الموظفين</h2>
+                <p id="studentCount" class="text-3xl font-bold text-green-600">0</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <h2 class="text-lg font-semibold mb-2">📋 عدد مرات الحضور</h2>
+                <p id="attendanceCount" class="text-3xl font-bold text-blue-600">0</p>
+            </div>
+        </div>
+
+        <!-- أزرار سريعة -->
+        <div class="flex flex-wrap gap-4 mt-6">
+            <a href="attend_log.html" class="bg-blue-600 text-white px-6 py-3 rounded shadow hover:bg-blue-700">📄 سجل الحضور</a>
+            <a href="add_empolyee.html" class="bg-green-600 text-white px-6 py-3 rounded shadow hover:bg-green-700">➕ إضافة موظف</a>
+        </div>
+    </main>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
+
+    <!-- إعداد Firebase -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0IAstH4zer5RkzJuQhPALX0UVnPotPDA",
+            authDomain: "raya-ahmed.firebaseapp.com",
+            projectId: "raya-ahmed",
+            storageBucket: "raya-ahmed.appspot.com",
+            messagingSenderId: "408257613174",
+            appId: "1:408257613174:web:57a6e4631b9866416cfe57"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // تأكيد تسجيل الدخول
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                loadDashboard();
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // تحميل البيانات
+        function loadDashboard() {
+            db.collection("students").get().then(snapshot => {
+                document.getElementById("studentCount").textContent = snapshot.size;
+            });
+
+            db.collection("attendance").get().then(snapshot => {
+                document.getElementById("attendanceCount").textContent = snapshot.size;
+            });
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                window.location.href = "login.html";
+            });
+        }
+
+        // الوضع الليلي
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle("dark");
+            localStorage.setItem("theme", html.classList.contains("dark") ? "dark" : "light");
+        }
+    </script>
+</body>
+
+</html>

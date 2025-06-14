@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسجيل الدخول - معهد راية</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-image: url('mmm.jpg.png');
+            /* تأكد أن الصورة موجودة */
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .backdrop {
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center font-sans">
+
+    <div class="w-full max-w-md backdrop p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl font-bold text-center text-green-700 mb-6">🎓 تسجيل الدخول</h2>
+
+        <form id="loginForm" class="space-y-4">
+            <input type="email" id="email" placeholder="البريد الإلكتروني" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500" required />
+
+            <div class="relative">
+                <input type="password" id="password" placeholder="كلمة المرور" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500 pr-10" required />
+                <button type="button" onclick="togglePassword()" class="absolute inset-y-0 left-0 px-3 text-gray-500 hover:text-gray-700 focus:outline-none">
+          👁️
+        </button>
+            </div>
+
+            <button type="submit" class="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700 transition">تسجيل الدخول</button>
+
+            <p class="text-center text-sm mt-4">
+                ليس لديك حساب؟
+                <a href="index.html" class="text-blue-600 hover:underline">سجل حساب جديد</a>
+            </p>
+        </form>
+    </div>
+
+    <!-- Firebase compat scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0IAstH4zer5RkzJuQhPALX0UVnPotPDA",
+            authDomain: "raya-ahmed.firebaseapp.com",
+            projectId: "raya-ahmed",
+            storageBucket: "raya-ahmed.appspot.com",
+            messagingSenderId: "408257613174",
+            appId: "1:408257613174:web:57a6e4631b9866416cfe57"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    window.location.href = "attend_log.html"; // صفحة سجل الحضور
+                })
+                .catch(error => {
+                    alert("❌ خطأ: " + error.message);
+                });
+        });
+
+        function togglePassword() {
+            const passField = document.getElementById("password");
+            passField.type = passField.type === "password" ? "text" : "password";
+        }
+    </script>
+</body>
+
+</html>

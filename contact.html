@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <title>اتصل بنا - معهد راية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center" style="direction: rtl;">
+
+    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-lg">
+        <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">📞 تواصل معنا</h2>
+
+        <form onsubmit="sendMessage(event)">
+            <input type="text" id="name" placeholder="الاسم الكامل" class="w-full p-3 mb-4 border rounded" required>
+            <input type="email" id="email" placeholder="البريد الإلكتروني" class="w-full p-3 mb-4 border rounded" required>
+            <textarea id="message" placeholder="رسالتك" rows="5" class="w-full p-3 mb-4 border rounded" required></textarea>
+
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+        إرسال
+      </button>
+        </form>
+
+        <div class="mt-6 text-center space-y-2">
+            <p class="font-semibold text-gray-700">أو تواصل معنا عبر:</p>
+            <div class="flex justify-center gap-6 mt-2">
+                <a href="https://wa.me/201030830822" target="_blank" class="text-green-600 hover:underline font-bold">واتساب</a>
+                <a href="https://www.facebook.com/RayaEdu2018/" target="_blank" class="text-blue-700 hover:underline font-bold">فيسبوك</a>
+                <a href="https://www.instagram.com/raya.high.institute/" target="_blank" class="text-pink-600 hover:underline font-bold">إنستجرام</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !message) {
+                alert("❌ جميع الحقول مطلوبة.");
+                return;
+            }
+
+            alert("✅ تم إرسال رسالتك بنجاح، سنتواصل معك قريبًا!");
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        }
+    </script>
+
+</body>
+
+</html>

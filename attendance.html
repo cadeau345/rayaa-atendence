@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الحضور - معهد راية</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0IAstH4zer5RkzJuQhPALX0UVnPotPDA",
+            authDomain: "raya-ahmed.firebaseapp.com",
+            projectId: "raya-ahmed",
+            storageBucket: "raya-ahmed.appspot.com",
+            messagingSenderId: "408257613174",
+            appId: "1:408257613174:web:57a6e4631b9866416cfe57"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <header class="bg-green-600 text-white p-4 text-center shadow-lg">
+        <h1 class="text-2xl font-bold">📅 تسجيل الحضور - معهد راية</h1>
+    </header>
+
+    <main class="p-6 flex flex-col items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl w-full max-w-md text-center">
+            <h2 class="text-xl font-semibold mb-4">📸 مسح QR لتسجيل الحضور</h2>
+
+            <div id="qr-reader" class="rounded border border-gray-300" style="width: 100%;"></div>
+            <p id="qr-reader-results" class="mt-4 text-green-600 font-bold"></p>
+        </div>
+    </main>
+
+    <footer class="bg-gray-200 dark:bg-gray-800 text-center py-4 mt-auto">
+        جميع الحقوق محفوظة © معهد راية 2025
+    </footer>
+
+    <script>
+        const html5QrCode = new Html5Qrcode("qr-reader");
+
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById("qr-reader-results").innerText = `✅ تم تسجيل: ${decodedText}`;
+            const now = new Date();
+
+            db.collection("attendance").add({
+                employeeId: decodedText,
+                timestamp: firebase.firestore.Timestamp.fromDate(now),
+                date: now.toISOString().split("T")[0],
+                time: now.toTimeString().split(" ")[0]
+            }).then(() => {
+                alert("✅ تم تسجيل الحضور بنجاح!");
+            }).catch(error => {
+                alert("❌ فشل التسجيل: " + error.message);
+            });
+        }
+
+        Html5Qrcode.getCameras().then(devices => {
+            if (devices && devices.length) {
+                html5QrCode.start({
+                        facingMode: "environment"
+                    }, {
+                        fps: 10,
+                        qrbox: 250
+                    },
+                    onScanSuccess
+                );
+            }
+        }).catch(err => {
+            console.error("❌ خطأ في الوصول للكاميرا:", err);
+        });
+    </script>
+</body>
+
+</html>
